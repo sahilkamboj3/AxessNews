@@ -1,19 +1,25 @@
 import SideNav from "../components/SideNav";
 import ArticleDiv from "../components/ArticleDiv";
-import styles from "../styles/home.module.scss";
+import styles from "../styles/index.module.scss";
 
 interface HomePageType {}
 
 const HomePage: React.FC<HomePageType> = () => {
-  const API_KEY = "1234d7d816c7491d9d83679684c4d82f";
+  const API_KEY = process.env.API_KEY;
   const categories = ["Technology", "Entertainment", "Sports"];
 
   return (
     <div className={styles.wrapper}>
-      <SideNav categories={categories} />
-      {categories.map((category) => {
-        return <ArticleDiv category={category} api_key={API_KEY} />;
-      })}
+      <div className={styles.nav_bar}>
+        <SideNav categories={categories} />
+      </div>
+      <div className={styles.articles}>
+        {categories.map((category) => {
+          return (
+            <ArticleDiv key={category} category={category} api_key={API_KEY} />
+          );
+        })}
+      </div>
     </div>
   );
 };

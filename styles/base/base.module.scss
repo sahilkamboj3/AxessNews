@@ -1,0 +1,6 @@
+@import "./variables";
+
+@mixin wrapper($background-color) {
+  font-family: $font-family, sans-serif;
+  background-color: $background-color;
+}

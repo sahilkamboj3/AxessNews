@@ -6,9 +6,7 @@ interface API_RESPONSE_TYPE {
     urlToImage?: string,
     publishedAt?: string,
     content?: string,
-    source?: string,
-    paywalls?: string[],
-    dateConfig?: (date: string) => Date;
+    source?: {id: string, name: string},
 }
 
 export default API_RESPONSE_TYPE;

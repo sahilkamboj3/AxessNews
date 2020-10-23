@@ -1,0 +1,19 @@
+@import "./base/base.module.scss";
+
+.wrapper {
+  @include wrapper(white);
+  display: grid;
+  grid-template-columns: 0.15fr 0.85fr;
+  grid-template-areas: "nav articles";
+  grid-row-gap: 0.5em;
+}
+
+.nav_bar {
+  grid-area: nav;
+}
+
+.articles {
+  grid-area: articles;
+  max-height: 100vh;
+  overflow-y: scroll;
+}
