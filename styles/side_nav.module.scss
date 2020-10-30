@@ -1,35 +1,35 @@
 @import "./base/base.module.scss";
 
-.wrapper {
-  @include wrapper(white);
-  display: grid;
-  min-height: 100vh;
-  grid-template-rows: 0.1fr 0.9fr;
-  grid-template-areas:
-    "logo"
-    "categories";
-  font-weight: 300;
-  border-right: 2px lightgrey solid;
-}
+// .wrapper {
+//   @include wrapper(white);
+//   display: grid;
+//   min-height: 100vh;
+//   grid-template-rows: 0.1fr 0.9fr;
+//   grid-template-areas:
+//     "logo"
+//     "categories";
+//   font-weight: 300;
+//   border-right: 2px lightgrey solid;
+// }
 
-.title {
-  grid-area: logo;
-  text-align: center;
-}
+// .title {
+//   grid-area: logo;
+//   text-align: center;
+// }
 
-.categories {
-  grid-area: categories;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  transform: translateY(-50px);
+// .categories {
+//   grid-area: categories;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   transform: translateY(-50px);
 
-  .category {
-    width: 100%;
-    font-size: 1.2em;
-    color: lightslategrey;
-    padding-left: 20%;
-    margin-top: 25px;
-    margin-bottom: 25px;
-  }
-}
+//   .category {
+//     width: 100%;
+//     font-size: 1.2em;
+//     color: lightslategrey;
+//     padding-left: 20%;
+//     margin-top: 25px;
+//     margin-bottom: 25px;
+//   }
+// }

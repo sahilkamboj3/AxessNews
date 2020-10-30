@@ -1,4 +1,4 @@
-import styles from "../styles/side_nav.module.scss";
+// import styles from "../styles/side_nav.module.scss";
 // const logo = require("../images/logo.png");
 
 interface SideNavType {
@@ -7,16 +7,12 @@ interface SideNavType {
 
 const SideNav: React.FC<SideNavType> = ({ categories }) => {
   return (
-    <div className={styles.wrapper}>
-      <h1 className={styles.title}>Axess</h1>
+    <div>
+      <h1>Axess</h1>
       {/* <img src={logo} alt="Logo" /> */}
-      <div className={styles.categories}>
+      <div>
         {categories.map((category) => {
-          return (
-            <h5 className={styles.category} key={category}>
-              {category}
-            </h5>
-          );
+          return <h5 key={category}>{category}</h5>;
         })}
       </div>
     </div>

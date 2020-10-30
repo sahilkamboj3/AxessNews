@@ -1,19 +1,30 @@
 @import "./base/base.module.scss";
+@import "./base/variables";
 
-.wrapper {
-  @include wrapper(white);
-  display: grid;
-  grid-template-columns: 0.15fr 0.85fr;
-  grid-template-areas: "nav articles";
-  grid-row-gap: 0.5em;
-}
+// .wrapper {
+//   padding: 1.5vh 0;
+//   min-height: 100vh;
+//   font-family: $text-font-family;
+//   background-image: url("../images/background.jpg");
+//   display: flex;
+//   flex-direction: column;
 
-.nav_bar {
-  grid-area: nav;
-}
+//   .axess {
+//     font-family: $header-font-family;
+//     font-size: 75px;
+//     color: $black;
+//   }
 
-.articles {
-  grid-area: articles;
-  max-height: 100vh;
-  overflow-y: scroll;
-}
+//   // .search {
+//   //   width: 62.5%;
+//   //   background-color: transparent;
+//   //   color: $text_color;
+//   //   padding: 2px 40px;
+//   //   margin-left: 2vw;
+//   //   height: 35px;
+//   //   -webkit-box-shadow: 0px 0px 10px -2px #000000;
+//   //   box-shadow: 0px 0px 10px -2px #000000;
+//   //   border-radius: 10px;
+//   //   border: none;
+//   // }
+// }

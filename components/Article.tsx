@@ -22,12 +22,14 @@ const Article: React.FC<ArticleType> = ({
   dateConfig,
 }) => {
   const sourceIdx: number = paywalls.indexOf(name);
-  const maxTitleLength = 80;
+  const maxTitleLength = 75;
+
+  const date = dateConfig(publishedAt);
 
   return (
     <div className={styles.wrapper}>
-      <img src={urlToImage} className={styles.image} />
-      <div className={styles.contentDiv}>
+      <img src={urlToImage} className={styles.img} />
+      {/* <div>
         {sourceIdx > -1 ? <h3>Paywall</h3> : ""}
         {title.length < maxTitleLength ? (
           <h3 className={styles.title}>{title}</h3>
@@ -36,13 +38,11 @@ const Article: React.FC<ArticleType> = ({
             {title.substring(0, maxTitleLength)}...
           </h3>
         )}
-        {author != null ? <p className={styles.author}>by {author}</p> : ""}
-        {/* <p>{dateConfig(publishedAt)}</p> */}
-        {/* <h6>{description}</h6> */}
-        <a href={url} className={styles.url} target="_blank">
+        <h3 className={styles.date}>{date}</h3>
+        <a href={url} target="_blank">
           See More
         </a>
-      </div>
+      </div> */}
     </div>
   );
 };
