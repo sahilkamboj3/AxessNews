@@ -1,14 +1,18 @@
 @import "./base/base.module.scss";
 @import "./base/variables";
 
-// .wrapper {
-//   .category {
-//     color: $black;
-//     font-weight: 500;
-//     margin-left: 2vw;
-//   }
-//   .articles {
-//     display: flex;
-//     justify-content: space-evenly;
-//   }
-// }
+.wrapper {
+  .category {
+    color: $black;
+    font-weight: 500;
+    margin-left: 2vw;
+  }
+  .articles {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .buttons {
+    margin-top: 10px;
+  }
+}

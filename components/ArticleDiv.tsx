@@ -7,12 +7,18 @@ interface ArticleDivType {
   category: string;
   api_key: string;
   queryString: string;
+  paywalls: string[];
+  changeDisplayArticles: (key: API_RESPONSE_TYPE, defaultImage: string) => void;
+  dateConfig: (date: string) => string;
 }
 
 const ArticleDiv: React.FC<ArticleDivType> = ({
   category,
   api_key,
   queryString,
+  paywalls,
+  changeDisplayArticles,
+  dateConfig,
 }) => {
   const [articles, setArticles] = useState<API_RESPONSE_TYPE[] | null>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
@@ -25,15 +31,9 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
   const [startIdx, setStartIdx] = useState(0);
   const [endIdx, setEndIdx] = useState(minArticles);
 
-  const paywalls: string[] = [
-    "The Wall Street Journal",
-    "New York Times",
-    "The Washington Post",
-  ];
-
-  useEffect(() => {
+  function handleFetch() {
     fetch(
-      `http://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${api_key}`
+      `http://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -43,33 +43,35 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
         setArticles(responseArticles);
         setCurArticles(responseArticles.slice(startIdx, endIdx));
         setLoaded(true);
-        console.log(category);
-        console.log(data["articles"]);
       });
+  }
+
+  function handleQueryFetch() {
+    fetch(
+      `http://newsapi.org/v2/top-headlines?q=${queryString}&country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const responseArticles: API_RESPONSE_TYPE[] = data["articles"].map(
+          (article: API_RESPONSE_TYPE) => article as API_RESPONSE_TYPE
+        );
+        setArticles(responseArticles);
+        setCurArticles(responseArticles.slice(startIdx, endIdx));
+        setLoaded(true);
+      });
+  }
+
+  useEffect(() => {
+    handleFetch();
   }, []);
 
-  // useEffect(() => {
-  //   if (queryString != "") {
-  //     fetch(
-  //       `http://newsapi.org/v2/top-headlines?q=${queryString}country=us&category=${category}&apiKey=${api_key}`
-  //       // pageSize=${pageSize}
-  //       // pageSize=100 for max
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         const responseArticles: API_RESPONSE_TYPE[] = data["articles"].map(
-  //           (article: API_RESPONSE_TYPE) => article as API_RESPONSE_TYPE
-  //         );
-  //         setArticles(responseArticles);
-  //         setCurArticles(responseArticles.slice(startIdx, endIdx));
-  //         setLoaded(true);
-  //       });
-  //   }
-  // }, [queryString]);
-
-  const handleDate = (date: string) => {
-    return date.substring(0, date.indexOf("T"));
-  };
+  useEffect(() => {
+    if (queryString != "") {
+      handleQueryFetch();
+    } else if (queryString === "") {
+      handleFetch();
+    }
+  }, [queryString]);
 
   const loadMoreReviews = () => {
     if (endIdx == articles.length) {
@@ -101,7 +103,10 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.category}>{category}</h1>
+      <h1 className={styles.category}>
+        {category.charAt(0).toUpperCase()}
+        {category.slice(1).toLowerCase()}
+      </h1>
       {!loaded ? (
         <h3>Loading...</h3>
       ) : (
@@ -115,12 +120,16 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
                       key={article["title"]}
                       articleInfo={article}
                       paywalls={paywalls}
-                      dateConfig={handleDate}
+                      dateConfig={dateConfig}
+                      defaultImageName={category}
+                      changeDisplayArticles={changeDisplayArticles}
+                      articleApi={article}
+                      // category={category}
                     />
                   );
                 })}
               </div>
-              <div>
+              <div className={styles.buttons}>
                 {endIdx < articles.length ? (
                   <button onClick={loadMoreReviews}>Load More</button>
                 ) : (
