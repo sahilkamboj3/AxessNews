@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from "react";
 import API_RESPONSE_TYPE from "../structures/api";
 import HistoryQueue from "./HistoryQueue";
-import styles from "../styles/special_article.module.scss";
+import styles from "../styles/queue.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons"; // imported the external link icon from FontAwesome
+import { faExternalLinkAlt, faCircle } from "@fortawesome/free-solid-svg-icons"; // imported the external link icon from FontAwesome
 
-interface SpecialArticleType {
+interface QueueType {
   displayArticles: API_RESPONSE_TYPE[];
   defaultImages: string[];
   paywalls: string[];
   dateConfig: (date: string) => string;
 }
 
-const SpecialArticle: React.FC<SpecialArticleType> = ({
+const Queue: React.FC<QueueType> = ({
   displayArticles,
   defaultImages,
   paywalls,
@@ -84,7 +84,7 @@ const SpecialArticle: React.FC<SpecialArticleType> = ({
               className={styles.img}
             />
           ) : (
-            // I use the default images stored in the public folder in case the urls to the images given throw errors.
+            // I used the default images stored in the public folder in case the urls to the images given throw errors.
             <img
               src={`${defaultImage.toLowerCase()}_default.jpg`}
               className={styles.img}
@@ -92,13 +92,20 @@ const SpecialArticle: React.FC<SpecialArticleType> = ({
           )}
           <div className={styles.content}>
             {/* Display the paywall sign if the source is in the paywalls list */}
-            {sourceIdx > -1 ? <h3>Paywall</h3> : ""}
             <div className={styles.dateAuthor}>
               {author != "" && author !== null && <h5>{author}</h5>}
               {author != "" && author !== null && (
-                <h5 className={styles.dot}>•</h5>
+                <h5 className={styles.dot}>
+                  <FontAwesomeIcon icon={faCircle} className={styles.dotIcon} />
+                </h5>
               )}
               <h5>Posted {date}</h5>
+              {sourceIdx > -1 && (
+                <h5 className={styles.paywall}>
+                  <FontAwesomeIcon icon={faCircle} className={styles.circle} />
+                  Paywall
+                </h5>
+              )}
             </div>
             <h1 className={styles.title}>{title}</h1>
             {description != "" && (
@@ -136,4 +143,4 @@ const SpecialArticle: React.FC<SpecialArticleType> = ({
   );
 };
 
-export default SpecialArticle;
+export default Queue;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Nav from "../components/Nav";
 import ArticleDiv from "../components/ArticleDiv";
-import SpecialArticle from "../components/SpecialArticle";
+import Queue from "../components/Queue";
 import API_RESPONSE_TYPE from "../structures/api";
 import styles from "../styles/index.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -101,7 +101,7 @@ const HomePage: React.FC<HomePageType> = () => {
     <div className={styles.wrapper}>
       <Nav />
       <div>
-        <SpecialArticle
+        <Queue
           displayArticles={displayArticles}
           defaultImages={defaultImages}
           paywalls={paywalls}

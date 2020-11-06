@@ -1,9 +1,8 @@
-@import "./base/base.module.scss";
 @import "./base/variables";
 
 .wrapper {
   min-height: 50vh;
-  width: 90%;
+  min-width: 100vw;
   margin: auto;
   padding: 0px 0;
   margin-bottom: 35px;
@@ -39,6 +38,10 @@
         .reversed {
           transform: scale(-0.75, 1.5);
         }
+      }
+
+      .button:active {
+        color: orange;
       }
 
       .greyedOutBtn {

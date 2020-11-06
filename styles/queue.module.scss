@@ -1,4 +1,3 @@
-@import "./base/base.module.scss";
 @import "./base/variables";
 
 .wrapper {
@@ -9,7 +8,7 @@
   margin-top: 20px;
 
   .img {
-    width: 99vw;
+    width: 100vw;
     -webkit-filter: grayscale(75%);
     filter: grayscale(75%);
   }
@@ -43,6 +42,23 @@
 
       .dot {
         margin: 0 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .dotIcon {
+          font-size: 0.5em;
+        }
+      }
+      .paywall {
+        color: red;
+        display: flex;
+        align-items: center;
+
+        .circle {
+          font-size: 0.5em;
+          margin: 0 10px;
+        }
       }
     }
 
