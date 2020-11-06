@@ -34,6 +34,8 @@ const HomePage: React.FC<HomePageType> = () => {
     "Hartford Courant",
     "Chicago Tribune",
     "National Centers for Environmental Information",
+    "The New Yorker",
+    "The Financial Times",
   ];
 
   // this is a function to store the search the user has finished inputting inside the query variable
