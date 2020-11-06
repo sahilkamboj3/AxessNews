@@ -1,0 +1,24 @@
+@import "./base/base.module.scss";
+@import "./base/variables";
+
+.wrapper {
+  width: 99vw;
+  text-align: center;
+  position: relative;
+  padding-top: 5px;
+
+  .date {
+    color: $white;
+    padding: 5px 0;
+    position: absolute;
+    top: 25%;
+    left: 2.5%;
+  }
+
+  .title {
+    text-align: center;
+    color: $white;
+    font-size: 50px;
+    font-family: $header-font-family;
+  }
+}

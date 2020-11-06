@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Article from "./Article";
 import styles from "../styles/article_div.module.scss";
 import API_RESPONSE_TYPE from "../structures/api";
+import classnames from "classnames";
 
 interface ArticleDivType {
   category: string;
@@ -20,17 +21,19 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
   changeDisplayArticles,
   dateConfig,
 }) => {
-  const [articles, setArticles] = useState<API_RESPONSE_TYPE[] | null>([]);
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [articles, setArticles] = useState<API_RESPONSE_TYPE[] | null>([]); // this list holds all the articles that will be loaded from the api
+  const [loaded, setLoaded] = useState<boolean>(false); // this variable holds whether or not the articles have loaded
 
-  const minArticles: number = 3;
+  const minArticles: number = 3; // this is the number of articles shown in at 1 time for each category for pagination purposes
   const [curArticles, setCurArticles] = useState<API_RESPONSE_TYPE[] | null>(
     null
-  );
+  ); // this list is going to be the current articles that are shown on the page application at any time
 
+  // these two variables hold the start and end indexes, for pagination purposes
   const [startIdx, setStartIdx] = useState(0);
   const [endIdx, setEndIdx] = useState(minArticles);
 
+  // The handleQueryFetch() function fetches with the query from the user entering an string the search bar whereas the handleFetch() fetches the articles without that query
   function handleFetch() {
     fetch(
       `http://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
@@ -61,10 +64,12 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
       });
   }
 
+  // call the handleFetch() upon loaad
   useEffect(() => {
     handleFetch();
   }, []);
 
+  // if the queryString isn't empty, called the handleQueryFetch() function, else called the handleFetch() again
   useEffect(() => {
     if (queryString != "") {
       handleQueryFetch();
@@ -74,80 +79,104 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
   }, [queryString]);
 
   const loadMoreReviews = () => {
+    // if we're the end of the articles list
     if (endIdx == articles.length) {
       return;
     } else if (endIdx + minArticles < articles.length) {
+      // if we're in the middle of the articles list
       setStartIdx(startIdx + minArticles);
       setEndIdx(endIdx + minArticles);
     } else {
+      // if we're within the last 3 articles of the articles list
       setStartIdx(articles.length - minArticles);
       setEndIdx(articles.length);
     }
   };
 
   const loadLessReviews = () => {
+    // if we're at the start of the articles list
     if (startIdx == 0) {
       return;
     } else if (startIdx - minArticles > 0) {
+      // if we're iin the middle of the articles list
       setStartIdx(startIdx - minArticles);
       setEndIdx(endIdx - minArticles);
     } else {
+      // if we're within the first 3 articles of the  articleslist
       setStartIdx(0);
       setEndIdx(minArticles);
     }
   };
 
+  // re-set the curArticles(articles shown on the page application) when the startIdx changes
   useEffect(() => {
     setCurArticles(articles.slice(startIdx, endIdx));
   }, [startIdx]);
 
   return (
-    <div className={styles.wrapper}>
-      <h1 className={styles.category}>
-        {category.charAt(0).toUpperCase()}
-        {category.slice(1).toLowerCase()}
-      </h1>
-      {!loaded ? (
-        <h3>Loading...</h3>
-      ) : (
-        <div>
-          {curArticles.length != 0 ? (
-            <div>
-              <div className={styles.articles}>
-                {curArticles.map((article) => {
-                  return (
-                    <Article
-                      key={article["title"]}
-                      articleInfo={article}
-                      paywalls={paywalls}
-                      dateConfig={dateConfig}
-                      defaultImageName={category}
-                      changeDisplayArticles={changeDisplayArticles}
-                      articleApi={article}
-                      // category={category}
-                    />
-                  );
+    <React.Fragment>
+      {articles.length > 0 && (
+        <div className={styles.wrapper}>
+          <div className={styles.heading}>
+            <h1 className={styles.category}>{category.toUpperCase()}</h1>
+            <div className={styles.buttons}>
+              <button
+                onClick={loadLessReviews}
+                className={classnames({
+                  [styles.button]: true,
+                  [styles.greyedOutBtn]: startIdx == 0,
                 })}
-              </div>
-              <div className={styles.buttons}>
-                {endIdx < articles.length ? (
-                  <button onClick={loadMoreReviews}>Load More</button>
-                ) : (
-                  ""
-                )}
-                {startIdx > 0 ? (
-                  <button onClick={loadLessReviews}>Load Less</button>
-                ) : (
-                  ""
-                )}
-              </div>
+              >
+                <p
+                  className={classnames({
+                    [styles.arrow]: true,
+                    [styles.reversed]: true,
+                  })}
+                >
+                  ▶
+                </p>
+              </button>
+              <button
+                onClick={loadMoreReviews}
+                className={classnames({
+                  [styles.button]: true,
+                  [styles.greyedOutBtn]: endIdx == articles.length,
+                })}
+              >
+                <p className={styles.arrow}>▶</p>
+              </button>
             </div>
+          </div>
+          {!loaded ? (
+            <h3>Loading...</h3>
           ) : (
-            ""
+            <div>
+              {curArticles.length != 0 ? (
+                <div>
+                  <div className={styles.articles}>
+                    {curArticles.map((article) => {
+                      return (
+                        <Article
+                          key={article["title"]}
+                          articleInfo={article}
+                          paywalls={paywalls}
+                          dateConfig={dateConfig}
+                          defaultImageName={category}
+                          changeDisplayArticles={changeDisplayArticles}
+                          articleApi={article}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           )}
         </div>
       )}
-    </div>
+    </React.Fragment>
   );
 };
 

@@ -1,0 +1,71 @@
+@import "./base/base.module.scss";
+@import "./base/variables";
+
+.wrapper {
+  width: 30vw;
+  color: $grey;
+  transition: 0.5s;
+  padding: 20px 0;
+
+  .recentlyViewedText {
+    font-size: 25px;
+    padding: 0 20px 20px 20px;
+  }
+
+  @mixin borderLeft($category) {
+    border-left: 7.5px solid;
+    @if $category == "Technology" {
+      border-left-color: #ecac06;
+    } @else if $category == "Entertainment" {
+      border-left-color: #da4f2b;
+    } @else if $category == "Sports" {
+      border-left-color: lightblue;
+    }
+  }
+
+  .yellow_vl {
+    @include borderLeft("Technology");
+  }
+  .orange_vl {
+    @include borderLeft("Entertainment");
+  }
+
+  .blue_green_vl {
+    @include borderLeft("Sports");
+  }
+  .row {
+    display: flex;
+    transition: transform 0.25s;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    cursor: pointer;
+
+    .type {
+      width: 15%;
+      display: flex;
+
+      .category {
+        margin: 15px 0;
+        cursor: pointer;
+        display: flex;
+      }
+    }
+
+    .article {
+      margin: 15px 0;
+      transition: transform 0.25s;
+      cursor: pointer;
+      width: 65%;
+    }
+
+    &:hover {
+      background: black;
+    }
+  }
+
+  .row:hover {
+    color: white;
+  }
+}

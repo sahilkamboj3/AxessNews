@@ -1,30 +1,30 @@
+// This is the main index file that houses the components on the page application
+
 import { useState } from "react";
-// import SideNav from "../components/SideNav";
+import Nav from "../components/Nav";
 import ArticleDiv from "../components/ArticleDiv";
-import History from "../components/History";
+import SpecialArticle from "../components/SpecialArticle";
 import API_RESPONSE_TYPE from "../structures/api";
 import styles from "../styles/index.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface HomePageType {}
 
 const HomePage: React.FC<HomePageType> = () => {
-  const API_KEY = process.env.API_KEY;
-  const categories = ["Technology", "Entertainment", "Sports"];
-  const [search, setSearch] = useState("");
-  const [query, setQuery] = useState("");
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY; // importing the API_KEY
+  const categories = ["Sports", "Entertainment", "Technology"]; // declaring the categories for the articles
+  const [search, setSearch] = useState(""); // initializing the search variable for the search bar
+  const [query, setQuery] = useState(""); // holds the search input when the user hits enter(the magnifying glass)
   const [displayArticles, setDisplayArticles] = useState<
     API_RESPONSE_TYPE[] | null
-  >(null);
-  const [
-    displayArticle,
-    setDisplayArticle,
-  ] = useState<API_RESPONSE_TYPE | null>(null);
-  const [defaultImages, setDefaultImages] = useState<string[]>([]);
-  const [defaultImage, setDefaultImage] = useState<string | null>(null);
+  >(null); // this is a list of the articles to be stored and shown in the Queue at the top of the page
+  const [defaultImages, setDefaultImages] = useState<string[]>([]); // this is a list of the categories/names of the default images that go along with the display articles in the queue
   const [historyKey, setHistoryKey] = useState<number>(0);
 
+  // this is a list of news sources who have paywalls for the articles on their websites
   const paywalls: string[] = [
-    "The Wall Street Journal", // look into this
+    "The Wall Street Journal",
     "New York Times",
     "The Washington Post",
     "Los Angeles Times",
@@ -36,26 +36,25 @@ const HomePage: React.FC<HomePageType> = () => {
     "National Centers for Environmental Information",
   ];
 
-  const handleDisplayArticle = (article: API_RESPONSE_TYPE) => {
-    setDisplayArticle(article);
-    const idx = displayArticles.indexOf(article);
-    setDefaultImage(defaultImages[idx]);
-  };
-
+  // this is a function to store the search the user has finished inputting inside the query variable
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setQuery(search);
   };
 
+  // this function is to extract the needed substring from the publishedAt property of the article responses
   const dateConfig = (date: string) => {
     return date.substring(0, date.indexOf("T"));
   };
 
+  // this function is to add to the queue of articles
   const addHistory = (key: API_RESPONSE_TYPE, defaultImage: string) => {
     if (displayArticles !== null && displayArticles.includes(key)) {
+      // if the article is already in the queue, I just returned
       return;
     }
 
+    // otherwise, I made these two lists to store the current display articles and default images
     let curArticles: API_RESPONSE_TYPE[];
     let curDefaultImages: string[];
 
@@ -67,14 +66,19 @@ const HomePage: React.FC<HomePageType> = () => {
       curDefaultImages = defaultImages;
     }
 
+    // add the new article and default image to the front of the listss
     curArticles.unshift(key);
     curDefaultImages.unshift(defaultImage);
 
-    if (curArticles.length > 5) {
+    const queueLimit = 5; // limit on the number of articles in queue
+
+    // if that limit is exceeded, I just popped off the last item
+    if (curArticles.length > queueLimit) {
       curArticles.pop();
       curDefaultImages.pop();
     }
 
+    // store those lists
     setDisplayArticles(curArticles);
     setDefaultImages(curDefaultImages);
 
@@ -86,6 +90,7 @@ const HomePage: React.FC<HomePageType> = () => {
   };
 
   const changeDisplayArticles = (
+    // this function calls the addHistory function by inputting the properties
     key: API_RESPONSE_TYPE,
     defaultImage: string
   ) => {
@@ -94,20 +99,16 @@ const HomePage: React.FC<HomePageType> = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h1 className={styles.axess}>Axess</h1>
+      <Nav />
       <div>
-        <History
-          key={historyKey}
+        <SpecialArticle
           displayArticles={displayArticles}
-          displayArticle={displayArticle}
-          // defaultImages={defaultImages}
-          defaultImage={defaultImage}
+          defaultImages={defaultImages}
           paywalls={paywalls}
           dateConfig={dateConfig}
-          handleDisplayArticle={handleDisplayArticle}
         />
       </div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles.searchForm}>
         <input
           className={styles.search}
           placeholder="Search here"
@@ -117,16 +118,20 @@ const HomePage: React.FC<HomePageType> = () => {
             setSearch(e.target.value);
           }}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className={styles.searchBtn}>
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
+        <button
+          // sets the search and query variables to empty strings
+          onClick={() => {
+            setSearch("");
+            setQuery("");
+          }}
+          className={styles.clearBtn}
+        >
+          Clear
+        </button>
       </form>
-      <button
-        onClick={() => {
-          setSearch("");
-          setQuery("");
-        }}
-      >
-        Clear search
-      </button>
       <div>
         {categories.map((category) => {
           return (

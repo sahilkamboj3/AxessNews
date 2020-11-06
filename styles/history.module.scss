@@ -1,0 +1,36 @@
+@import "./base/base.module.scss";
+@import "./base/variables";
+
+.test {
+  // border: 2px red solid;
+  // min-width: 100%;
+  min-width: 80vw;
+  max-width: 80vw;
+
+  .wrapper {
+    background-color: $black;
+    display: flex;
+    // border: 2px red solid;
+    // min-width: 75%;
+    // max-width: 75%;
+    min-width: 100%;
+    // max-width: 90%;
+    margin: auto;
+    justify-content: space-between;
+
+    .article {
+      width: 75%;
+      // border: 2px red solid;
+    }
+
+    .queue {
+      // width: 15%;
+      // transform: translateX(5vw);
+      // border: 2px green solid;
+    }
+  }
+
+  .default {
+    color: $white;
+  }
+}

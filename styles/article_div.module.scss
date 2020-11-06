@@ -2,17 +2,53 @@
 @import "./base/variables";
 
 .wrapper {
-  .category {
-    color: $black;
-    font-weight: 500;
-    margin-left: 2vw;
+  min-height: 50vh;
+  width: 90%;
+  margin: auto;
+  padding: 0px 0;
+  margin-bottom: 35px;
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .category {
+      color: $grey;
+      font-weight: 400;
+      font-size: 25px;
+      margin-left: 2vw;
+      letter-spacing: 2px;
+    }
+    .buttons {
+      margin-right: 2vw;
+
+      .button {
+        background-color: transparent;
+        font-size: 25px;
+        border: none;
+        padding: 5px 5px;
+        color: $white;
+        cursor: pointer;
+
+        .arrow {
+          transform: scale(0.75, 1.5);
+        }
+
+        .reversed {
+          transform: scale(-0.75, 1.5);
+        }
+      }
+
+      .greyedOutBtn {
+        color: $grey_dark;
+      }
+    }
   }
+
   .articles {
     display: flex;
     justify-content: space-evenly;
-  }
-
-  .buttons {
-    margin-top: 10px;
   }
 }

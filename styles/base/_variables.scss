@@ -1,17 +1,13 @@
-// Old News Heading
-@import url("https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 
-$header-font-family: "UnifrakturCook", cursive;
-$text-font-family: "Dancing Script", cursive;
+$header-font-family: "'Oleo Script Swash Caps'", cursive;
+$text-font-family: "Quicksand", sans-serif;
 
 $interactive_light: #f3dfc1;
 $main: #f3cea1;
 $interactive_dark: #654321;
 $black: #1a1c1a;
-$grey: #d3d3d3;
+$grey_dark: #d3d3d3;
+$grey: #e7e7e7;
 $white: #fbfaf5;
-
-// main / interactive, interactive light, interactive dark
-// black
-// white

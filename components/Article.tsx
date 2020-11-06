@@ -1,13 +1,19 @@
 import { useState } from "react";
 import API_RESPONSE_TYPE from "../structures/api";
 import styles from "../styles/article.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPlus,
+  faExternalLinkAlt,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface ArticleType {
-  articleApi: API_RESPONSE_TYPE;
+  articleApi: API_RESPONSE_TYPE; // this is the object that is sent back up to index.tsx to add to the queue
   articleInfo: API_RESPONSE_TYPE;
   paywalls?: string[];
   defaultImageName?: string;
-  changeDisplayArticles: (key: API_RESPONSE_TYPE, defaultImage: string) => void;
+  changeDisplayArticles: (key: API_RESPONSE_TYPE, defaultImage: string) => void; // this is the function that sends the defaultImage and the articleApi object back up to index.tsx to add to the queue of articles
   dateConfig?: (date: string) => string;
 }
 
@@ -29,9 +35,6 @@ const Article: React.FC<ArticleType> = ({
   changeDisplayArticles,
 }) => {
   const sourceIdx: number = paywalls.indexOf(name);
-  const maxTitleLength = 100;
-  const date = dateConfig(publishedAt);
-  const [seeMore, setSeeMore] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   const printError = () => {
@@ -44,53 +47,58 @@ const Article: React.FC<ArticleType> = ({
 
   return (
     <div className={styles.wrapper}>
-      {urlToImage !== null &&
-      urlToImage !== "" &&
-      urlToImage !== undefined &&
-      !error ? (
-        <img
-          src={urlToImage.trim()}
-          className={styles.img}
-          onError={printError}
-        />
-      ) : (
-        <img
-          src={`${defaultImageName.toLowerCase()}_default.jpg`}
-          className={styles.img}
-        />
-      )}
-      <div className={styles.contentDiv}>
-        {sourceIdx > -1 ? <h3>Paywall</h3> : ""}
-        <h3>{name}</h3>
-        {title.length < maxTitleLength ? (
-          <h3>{title}</h3>
+      <div className={styles.imgDiv}>
+        {urlToImage !== null &&
+        urlToImage !== "" &&
+        urlToImage !== undefined &&
+        !error ? (
+          <img
+            src={urlToImage.trim()}
+            className={styles.img}
+            onError={printError}
+          />
         ) : (
-          <h3 className={styles.title}>
-            {title.substring(0, maxTitleLength)}...
+          // call the default image if the url to the image throws an error
+          <img
+            src={`${defaultImageName.toLowerCase()}_default.jpg`}
+            className={styles.img}
+          />
+        )}
+      </div>
+      <div className={styles.contentDiv}>
+        {/* paywall sign if the source is in the list of new sources with paywalls */}
+        {sourceIdx > -1 && (
+          <h3 className={styles.paywall}>
+            <FontAwesomeIcon icon={faCircle} className={styles.circle} />
+            Paywall
           </h3>
         )}
-        <h4>{date}</h4>
-        {seeMore && author !== "" && author != null ? <h4>by {author}</h4> : ""}
+
+        <h3 className={styles.title}>{title}</h3>
+
+        {author !== null && author !== "" && (
+          <h4 className={styles.author}>by {author}</h4>
+        )}
+      </div>
+      <div className={styles.buttons}>
+        <button className={styles.readArticle}>
+          <a href={url} target="_blank" className={styles.readText}>
+            Read{" "}
+            <FontAwesomeIcon
+              icon={faExternalLinkAlt}
+              className={styles.externalLinkIcon}
+            />
+          </a>
+        </button>
         <button
           onClick={() => {
-            if (!seeMore) {
-              seeMoreClick();
-            }
-            setSeeMore(!seeMore);
+            seeMoreClick();
           }}
+          className={styles.queueBtn}
         >
-          {!seeMore ? "See more" : "See less"}
+          <FontAwesomeIcon icon={faPlus} className={styles.plusBtn} />
+          Queue
         </button>
-        {seeMore && description !== "" && description != null ? (
-          <p>{description}</p>
-        ) : seeMore && (description == "" || description === null) ? (
-          "No description"
-        ) : (
-          ""
-        )}
-        <a href={url} target="_blank">
-          Read
-        </a>
       </div>
     </div>
   );

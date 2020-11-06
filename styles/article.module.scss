@@ -2,38 +2,137 @@
 @import "./base/variables";
 
 .wrapper {
-  //   width: 22.5%;
-  //   min-height: 25%;
-  max-height: 25%;
-  min-width: 25%;
-  max-width: 35%;
-  //   border: 2px red solid;
-  position: relative;
-  text-align: center;
-  transition: 0.5s;
-  z-index: 1;
+  display: grid;
+  grid-template-rows: 2fr 1fr 1fr;
+  grid-template-areas:
+    "image"
+    "content"
+    "buttons";
 
-  .img {
-    // height: 100%;
+  width: 30%;
+  transition: 0.5s;
+  align-items: center;
+  margin: 0 10px;
+  height: 55vh;
+
+  .imgDiv {
+    grid-area: image;
+    height: 100%;
     width: 100%;
-    border-radius: 10px;
-    filter: grayscale(100%) brightness(100%) opacity(50%);
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .img {
+      height: 100%;
+      width: auto;
+    }
   }
 
   .contentDiv {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    line-height: 20px;
-    // border: 2px red solid;
-    height: 50px;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    grid-area: content;
+
+    .paywall {
+      color: red;
+      display: flex;
+      align-items: center;
+
+      .circle {
+        font-size: 0.5em;
+        margin: 0 5px;
+      }
+    }
+
+    .title {
+      margin-top: 15px;
+      font-size: 17px;
+    }
+
+    .author {
+      font-size: 15px;
+      margin-top: 5px;
+    }
+  }
+
+  .buttons {
+    grid-area: buttons;
+    display: flex;
+    justify-content: center;
+
+    .queueBtn {
+      width: 100px;
+      padding: 7.5px 2.5px;
+      border-radius: 10px;
+
+      background-color: $white;
+      color: $black;
+
+      border-radius: 35px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin: 15px 10px;
+      transition: background-color 0.1s ease-in;
+      transition: 0.2s;
+      transition: background-color color 0.25s ease-in;
+      border: none;
+
+      .plusBtn {
+        font-size: 20px;
+        margin-right: 7px;
+        transition: 0.1s ease-in;
+        font-size: 17.5px;
+        transition: transform 0.25s;
+      }
+    }
+
+    .queueBtn:hover {
+      background-color: $black;
+      color: $white;
+
+      .plusBtn {
+        transform: rotate(90deg);
+        transform-origin: center;
+      }
+    }
+
+    .queueBtn:active {
+      transform: scale(1.1);
+    }
+
+    .readArticle {
+      width: 100px;
+      background-color: orange;
+      border-radius: 35px;
+      padding: 7.5px 2.5px;
+      cursor: pointer;
+      margin: 15px 10px;
+      transition: 0.1s;
+
+      .readText {
+        color: $black;
+        text-decoration: none;
+
+        .externalLinkIcon {
+          margin-left: 5px;
+        }
+      }
+    }
+
+    .readArticle:hover {
+      background-color: darkorange;
+    }
+    .readArticle:active {
+      transform: scale(1.1);
+    }
   }
 }
 
 .wrapper:hover {
   transform: scale(1.05);
-  z-index: 2;
-  cursor: pointer;
 }
