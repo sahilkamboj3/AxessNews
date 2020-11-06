@@ -36,7 +36,7 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
   // The handleQueryFetch() function fetches with the query from the user entering an string the search bar whereas the handleFetch() fetches the articles without that query
   function handleFetch() {
     fetch(
-      `http://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
+      `https://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +51,7 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
 
   function handleQueryFetch() {
     fetch(
-      `http://newsapi.org/v2/top-headlines?q=${queryString}&country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
+      `https://newsapi.org/v2/top-headlines?q=${queryString}&country=us&category=${category.toLowerCase()}&apiKey=${api_key}`
     )
       .then((res) => res.json())
       .then((data) => {

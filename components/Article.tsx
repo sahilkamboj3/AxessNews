@@ -86,7 +86,7 @@ const Article: React.FC<ArticleType> = ({
             Read{" "}
             <FontAwesomeIcon
               icon={faExternalLinkAlt}
-              className={styles.externalLinkIcon}
+              className={styles.externalLink}
             />
           </a>
         </button>
