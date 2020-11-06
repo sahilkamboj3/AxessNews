@@ -20,6 +20,7 @@
     height: 100%;
     width: 100%;
     overflow-y: hidden;
+    overflow-x: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,6 +114,7 @@
       cursor: pointer;
       margin: 15px 10px;
       transition: 0.1s;
+      border: none;
 
       .readText {
         color: $black;
