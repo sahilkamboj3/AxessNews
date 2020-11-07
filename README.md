@@ -34,5 +34,6 @@ The Daily Axess uses a number of open frameworks/languages to work properly:
 - [TypeScript]
 - [NewsAPI]
 - [SCSS]
+- [FontAwesome]
 
 And of course The Daily Axess itself is open source with a [public repository][https://github.com/sahilkamboj3/axess_news] on GitHub.
