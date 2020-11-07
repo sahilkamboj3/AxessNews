@@ -79,32 +79,38 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
   }, [queryString]);
 
   const loadMoreReviews = () => {
-    // if we're the end of the articles list
-    if (endIdx == articles.length) {
-      return;
-    } else if (endIdx + minArticles < articles.length) {
-      // if we're in the middle of the articles list
-      setStartIdx(startIdx + minArticles);
-      setEndIdx(endIdx + minArticles);
-    } else {
-      // if we're within the last 3 articles of the articles list
-      setStartIdx(articles.length - minArticles);
-      setEndIdx(articles.length);
+    // making sure there are enough articles to paginate
+    if (articles.length > 3) {
+      // if we're the end of the articles list
+      if (endIdx == articles.length) {
+        return;
+      } else if (endIdx + minArticles < articles.length) {
+        // if we're in the middle of the articles list
+        setStartIdx(startIdx + minArticles);
+        setEndIdx(endIdx + minArticles);
+      } else {
+        // if we're within the last 3 articles of the articles list
+        setStartIdx(articles.length - minArticles);
+        setEndIdx(articles.length);
+      }
     }
   };
 
   const loadLessReviews = () => {
-    // if we're at the start of the articles list
-    if (startIdx == 0) {
-      return;
-    } else if (startIdx - minArticles > 0) {
-      // if we're iin the middle of the articles list
-      setStartIdx(startIdx - minArticles);
-      setEndIdx(endIdx - minArticles);
-    } else {
-      // if we're within the first 3 articles of the  articleslist
-      setStartIdx(0);
-      setEndIdx(minArticles);
+    // making sure there are enough articles to paginate
+    if (articles.length > 3) {
+      // if we're at the start of the articles list
+      if (startIdx == 0) {
+        return;
+      } else if (startIdx - minArticles > 0) {
+        // if we're iin the middle of the articles list
+        setStartIdx(startIdx - minArticles);
+        setEndIdx(endIdx - minArticles);
+      } else {
+        // if we're within the first 3 articles of the  articleslist
+        setStartIdx(0);
+        setEndIdx(minArticles);
+      }
     }
   };
 
