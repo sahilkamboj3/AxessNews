@@ -4,7 +4,7 @@
 
 The Daily Axess is a NextJS web application that brings the latest articles to users.
 
-# Features!
+# Features
 
 - Store a queue of up to the 5 latest articles you have selected. Simply select and store them in queue to view later on.
 
