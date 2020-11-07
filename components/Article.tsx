@@ -1,3 +1,5 @@
+// This component displays the articles within the article div.
+
 import { useState } from "react";
 import API_RESPONSE_TYPE from "../structures/api";
 import styles from "../styles/article.module.scss";
@@ -6,7 +8,7 @@ import {
   faPlus,
   faExternalLinkAlt,
   faCircle,
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/free-solid-svg-icons"; // imported the external link, plus sign, and cicle icons from FontAwesome
 
 interface ArticleType {
   articleApi: API_RESPONSE_TYPE; // this is the object that is sent back up to index.tsx to add to the queue
@@ -34,7 +36,9 @@ const Article: React.FC<ArticleType> = ({
   dateConfig,
   changeDisplayArticles,
 }) => {
+  // to check if the source is in the paywalls list
   const sourceIdx: number = paywalls.indexOf(name);
+  // variable for whether the url to the image throws an error
   const [error, setError] = useState<boolean>(false);
 
   const printError = () => {
@@ -67,7 +71,7 @@ const Article: React.FC<ArticleType> = ({
       </div>
       <div className={styles.contentDiv}>
         {/* paywall sign if the source is in the list of new sources with paywalls */}
-        {sourceIdx > -1 && (
+        {sourceIdx > -1 && ( // shows only if the source is in the paywalls list
           <h3 className={styles.paywall}>
             <FontAwesomeIcon icon={faCircle} className={styles.circle} />
             Paywall

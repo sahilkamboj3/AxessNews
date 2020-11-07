@@ -1,8 +1,6 @@
 # The Daily Axess
 
-[The Daily Axess](https://axess-news.vercel.app/) - Live published website hosting this page application
-
-The Daily Axess is a NextJS web application that brings the latest articles to users.
+The Daily Axess is a NextJS web application that brings the latest articles to users. The link to view the live published application can be found here: [The Daily Axess](https://axess-news.vercel.app/)
 
 # Features
 

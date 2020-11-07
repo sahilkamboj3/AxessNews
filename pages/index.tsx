@@ -68,7 +68,7 @@ const HomePage: React.FC<HomePageType> = () => {
       curDefaultImages = defaultImages;
     }
 
-    // add the new article and default image to the front of the listss
+    // add the new article and default image to the front of the lists
     curArticles.unshift(key);
     curDefaultImages.unshift(defaultImage);
 
@@ -117,6 +117,7 @@ const HomePage: React.FC<HomePageType> = () => {
           type="text"
           value={search}
           onChange={(e) => {
+            // sets the search varible to the current input of characters
             setSearch(e.target.value);
           }}
         />

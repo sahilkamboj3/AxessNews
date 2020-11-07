@@ -1,3 +1,5 @@
+// This component houses the articles within its respective category
+
 import React, { useState, useEffect } from "react";
 import Article from "./Article";
 import styles from "../styles/article_div.module.scss";
@@ -64,11 +66,12 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
       });
   }
 
-  // call the handleFetch() upon loaad
+  // call the handleFetch() upon load
   useEffect(() => {
     handleFetch();
   }, []);
 
+  // this runs everytime the queryString parameter changes within the component
   // if the queryString isn't empty, called the handleQueryFetch() function, else called the handleFetch() again
   useEffect(() => {
     if (queryString != "") {
@@ -120,6 +123,7 @@ const ArticleDiv: React.FC<ArticleDivType> = ({
           <div className={styles.heading}>
             <h1 className={styles.category}>{category.toUpperCase()}</h1>
             <div className={styles.buttons}>
+              {/* buttons to load the next or previous articles depending on which the user selects */}
               <button
                 onClick={loadLessReviews}
                 className={classnames({

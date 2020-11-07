@@ -7,7 +7,7 @@ import classNames from "classnames";
 interface HistoryQueueType {
   queue: API_RESPONSE_TYPE[];
   images?: string[];
-  handleDisplayArticle: (article: API_RESPONSE_TYPE) => void; // call this function when an article in the queue has been selected
+  handleDisplayArticle: (article: API_RESPONSE_TYPE) => void; // call this function when an article in the queue has been selected so it can be displayed
 }
 
 const HistoryQueue: React.FC<HistoryQueueType> = ({
@@ -29,7 +29,7 @@ const HistoryQueue: React.FC<HistoryQueueType> = ({
                 key={article["title"]}
                 onClick={() => handleDisplayArticle(article)}
                 className={classNames({
-                  // The row classname is always true.
+                  // sets the border color based on the category type
                   [styles.row]: true,
                   [styles.yellow_vl]: category === "Technology",
                   [styles.orange_vl]: category == "Entertainment",

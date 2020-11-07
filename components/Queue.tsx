@@ -1,4 +1,4 @@
-// This component is the component the Nav that displays the article selected in more detail with a list of the articles in queue.
+// This component is the component that displays the article selected in more detail with a list of the articles in queue.
 
 import React, { useState, useEffect } from "react";
 import API_RESPONSE_TYPE from "../structures/api";
